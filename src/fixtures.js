@@ -1,26 +1,26 @@
 export default [
     {
-        "name": "Play with friend",
-        "idOfButton": "game-with-friend"
+        "buttonContent": "Start",
+        "buttonId": "game-with-random-user"
     },
     {
-        "name": "Play with random user",
-        "idOfButton": "game-with-random-user"
+        "buttonContent": "Single Play",
+        "buttonId": "single-play"
     },
     {
-        "name": "Get Rooles",
-        "idOfButton": "rooles"
+        "buttonContent": "Game with friend",
+        "buttonId": "game-with-friend"
     },
     {
-        "name": "Play on one PC",
-        "idOfButton": "solo-game"
+        "buttonContent": "Training",
+        "buttonId": "training"
     },
     {
-        "name": "Choose Textures",
-        "idOfButton": "textures"
+        "buttonContent": "Rooles",
+        "buttonId": "rooles"
     },
     {
-        "name": "Training",
-        "idOfButton": "training"
+        "buttonContent": "textures",
+        "buttonId": "textures"
     }
 ]

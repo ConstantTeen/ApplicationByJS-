@@ -1,24 +1,21 @@
-import React, {Component} from "react"
+import React,{Component} from 'react';
+import {render} from 'react-dom';
 
 class Button extends Component{
 
     constructor(props){
-        super(props)
-        this.handleClick = handleClick.bind(this);
+        super(props);
     }
 
     render(){
-        const name = this.props.button.name
+        const content = this.props.content;
+        const buttonId = this.props.id;
+        const clickListener = this.props.clickListener;
 
-        console.log(name)
         return(
-            <button onClick={this.handleClick}>{name}</button>
+            <button onClick={() => clickListener(buttonId)} id={buttonId}>{content}</button>
         )
     }
-}
-
-function handleClick(){
-    // do nothing
 }
 
 export default Button
