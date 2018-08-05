@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {render} from 'react-dom';
 import Button from "./Button";
+import {browserHistory} from 'react-router'
 
 class ButtonList extends Component{
     constructor(props){
@@ -11,15 +12,19 @@ class ButtonList extends Component{
 
         switch (id) {
             case ("game-with-random-user"):
+                window.location = "/play-area/:1";
                 console.log("random");
                 break;
             case "single-play":
+                window.location = "/play-area/:2";
                 console.log("solo");
                 break;
             case "game-with-friend":
+                window.location = "/play-area/:3";
                 console.log("friend");
                 break;
             case "training":
+                window.location = "/play-area/:4";
                 console.log("training");
                 break;
             case "rooles":
