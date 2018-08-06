@@ -15,10 +15,13 @@ class PlayArea extends Component{
             return false;
         }else if(checkerColor === "white"){
             return true;
-        }else{
+        }else if(checkerColor !== null){
             alert("There is no such color");
             return this.colorChoice();
         }
+
+        window.location = "/";
+
     }
 
     render(){
