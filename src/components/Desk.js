@@ -9,7 +9,7 @@ class Desk extends Component{
             initialState: true,
             turn: true,
             gameOver: false,
-            previousDigitDesk: [
+            previousdigitalDesk: [
                 [0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0],
@@ -20,7 +20,7 @@ class Desk extends Component{
                 [0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0]
             ],
-            digitDesk: [
+            digitalDesk: [
                 [0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0],
@@ -41,7 +41,7 @@ class Desk extends Component{
 
         this.booleanLowerColor = props.checkersColor;
         this.deskSize = "400px";
-        this.digitDeskSize = 400;
+        this.digitalDeskSize = 400;
         this.styleObject = {
             "border": "3px solid black",
             "margin": "40px",
@@ -63,7 +63,7 @@ class Desk extends Component{
 
         this.setState( (prevState, props) => {
             const color = props.checkersColor;
-            let newDesk = prevState.digitDesk;
+            let newDesk = prevState.digitalDesk;
 
             if(color){
                 for(let i = 1; i <= 8;i+= 2){
@@ -88,7 +88,7 @@ class Desk extends Component{
                 }
             }
 
-            return {digitDesk: newDesk};
+            return {digitalDesk: newDesk};
         } );
     }
 
@@ -96,23 +96,88 @@ class Desk extends Component{
         this.drawTheDesk();
     }
 
+    whatHappend(x,y){
+
+        const previousX = this.state.chosenFigure.x;
+        const previousY = this.state.chosenFigure.y;
+        const turn = this.state.turn;
+        const digitalFigureColor = this.state.digitalDesk[x][y];
+        const previousDigitalFigureColor = (previousX === null) ? null : this.state.digitalDesk[previousX][previousY];
+
+        if(previousDigitalFigureColor === null){
+            if( (turn && (digitalFigureColor === 1)) || (!turn && (digitalFigureColor === 2)) )return 1;
+            else return 0;
+        }
+        if(previousDigitalFigureColor === digitalFigureColor) return 1;
+
+        const distanceBetweenXs = Math.abs(x - previousX);
+        const distanceBetweenYs = Math.abs(y - previousY);
+
+        if( (distanceBetweenXs === 1) && (distanceBetweenYs === 1) ){
+            if(digitalFigureColor === 0) return 2;
+            else if(digitalFigureColor === ((turn) ? 1 : 2) ) return 1;
+
+            return 0;
+        }
+
+        const middleX = (x + previousX)/2;
+        const middleY = (y + previousY)/2;
+        const digitalMiddleFigureColor = this.state.digitalDesk[middleX][middleY];
+
+        if( (distanceBetweenXs === 2) && (distanceBetweenYs === 2) && (digitalFigureColor === 0) && (digitalMiddleFigureColor === (turn) ? 2 : 1 ) ) return 3;
+
+        return 0;
+    }
+
     onClickListener(event){
 
         const x = getCorrectCoordinates.call(this,event).x;
         const y = getCorrectCoordinates.call(this,event).y;
+        const whatHappend = this.whatHappend(x,y);
 
-        if(this.state.chosenFigure.x === null){
-            if( (this.state.turn && this.state.digitDesk[x][y] === 1) || (!this.state.turn && this.state.digitDesk[x][y] === 2) ) {
+        switch(whatHappend){
+            case 1:
                 this.state.chosenFigure.x = x;
                 this.state.chosenFigure.y = y;
-                // this.setState( { chosenFigure: {x: x, y: y} } ); почему-то не работает
-            }
-        }else if( (Math.abs(x - this.state.chosenFigure.x) === 1) && (Math.abs(y - this.state.chosenFigure.y) === 1) && this.state.digitDesk[x][y] === 0 ){
+            // this.setState( { chosenFigure: {x: x, y: y} } ); почему-то не работает
+                break;
+            case 2:
                 this.replaceTheFigure(x,y);
                 this.drawTheDesk();
+
                 this.setState((prevState) => {
-                   return {turn: !prevState.turn}
+                    return {turn: !prevState.turn}
                 });
+
+                break;
+            case 3:
+                const chosenX = this.state.chosenFigure.x;
+                const chosenY = this.state.chosenFigure.y;
+                const middleX = (x + chosenX)/2;
+                const middleY = (y + chosenY)/2;
+
+                this.replaceTheFigure(x,y);
+
+                let newDesk = this.createClone(this.state.digitalDesk);
+
+                newDesk[middleX][middleY] = 0;
+
+                this.state.digitalDesk = this.createClone(newDesk);
+                this.state.chosenFigure.x = null;
+                this.state.chosenFigure.y = null;
+
+                this.drawTheDesk();
+
+                this.setState((prevState) => {
+                    return {turn: !prevState.turn}
+                });
+
+                break;
+            case 0:
+                return;
+                break;
+            default:
+                alert("Опа F5");
         }
 
     }
@@ -127,15 +192,15 @@ class Desk extends Component{
         const previousY = this.state.chosenFigure.y;
 
         let color = this.state.turn;
-        let newDesk = this.createClone(this.state.digitDesk);
+        let newDesk = this.createClone(this.state.digitalDesk);
 
-        this.state.previousDigitDesk = this.createClone(newDesk);
+        this.state.previousdigitalDesk = this.createClone(newDesk);
 
         color = (color) ? 1 : 2;
         newDesk[previousX][previousY] = 0;
         newDesk[newX][newY] = color;
 
-        this.state.digitDesk = this.createClone(newDesk);
+        this.state.digitalDesk = this.createClone(newDesk);
         this.state.chosenFigure.x = null;
         this.state.chosenFigure.y = null;
 
@@ -161,11 +226,11 @@ class Desk extends Component{
 export default Desk
 
 function drawTheDesk() {
-    console.log("drawdesk");
+
     for(let i = 1; i <= 8; i++) {
         for (let j = 1; j <= 8; j++) {
-            const cell = this.state.digitDesk[i][j];
-            const previousCell = this.state.previousDigitDesk[i][j];
+            const cell = this.state.digitalDesk[i][j];
+            const previousCell = this.state.previousdigitalDesk[i][j];
 
             if (cell !== previousCell){
                 if (cell === 0) deleteCell.apply(this, [i, j]);
@@ -178,10 +243,10 @@ function drawTheDesk() {
 }
 
 function deleteCell(x,y){
-    console.log("deletecell");
+
     const desk = document.getElementById("desk");
     const ctx = desk.getContext('2d');
-    const deskSize = this.digitDeskSize;
+    const deskSize = this.digitalDeskSize;
     const figureSize = deskSize/8;
     const xpx = figureSize*(x - 1);
     const ypx = figureSize*(y - 1);
@@ -193,7 +258,7 @@ function drawCell(x,y,boolColor){
 
     const desk = document.getElementById("desk");
     const ctx = desk.getContext('2d');
-    const deskSize = this.digitDeskSize;
+    const deskSize = this.digitalDeskSize;
     const figureSize = deskSize/8;
     const xpx = figureSize*(x - 1);
     const ypx = figureSize*(y - 1);
@@ -223,8 +288,8 @@ function getCorrectCoordinates(event){
 
     x -= canvas.offsetLeft;
     y -= canvas.offsetTop;
-    x = Math.floor( x/(this.digitDeskSize/8) ) + 1;
-    y = Math.floor( y/(this.digitDeskSize/8) ) + 1;
+    x = Math.floor( x/(this.digitalDeskSize/8) ) + 1;
+    y = Math.floor( y/(this.digitalDeskSize/8) ) + 1;
 
     return {
         "x": x,

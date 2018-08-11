@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aad0db40-caa5-41d0-b6cd-1ce0fb91b76a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Desk.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Desk.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -40,12 +39,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="8272" />
+          <entry key="js" value="9746" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="8272" />
+          <entry key="JavaScript" value="9746" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -98,14 +97,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Desk.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="115" column="9" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+            <state relative-caret-position="155">
+              <caret line="162" column="71" selection-start-line="162" selection-start-column="71" selection-end-line="162" selection-end-column="71" />
               <folding>
+                <element signature="n#!!block;n#constructor#0;n#Desk#0" />
                 <element signature="n#!!block;n#componentWillMount#0;n#Desk#0" />
                 <element signature="n#!!block;n#componentDidMount#0;n#Desk#0" />
                 <element signature="n#!!block;n#createClone#0;n#Desk#0" />
+                <element signature="e#4382#4618#0" />
                 <element signature="n#!!block;n#drawTheDesk#0" />
-                <element signature="n#!!block;n#deleteCell#0" />
                 <element signature="n#!!block;n#drawCell#0" />
                 <element signature="n#!!block;n#getCorrectCoordinates#0" />
               </folding>
@@ -138,6 +138,8 @@
     <findStrings>
       <find>lowerColor</find>
       <find>booleanLowerColor</find>
+      <find>digit</find>
+      <find>previousFigureColor</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -259,22 +261,23 @@
       <workItem from="1533591472167" duration="5497000" />
       <workItem from="1533736384380" duration="10771000" />
       <workItem from="1533906051259" duration="5769000" />
-      <workItem from="1533979479439" duration="2245000" />
+      <workItem from="1533979479439" duration="15377000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63164000" />
+    <option name="totallyTimeSpent" value="76296000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18260188" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32952693" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -283,7 +286,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.26264274" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.26264274" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -353,14 +356,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Desk.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="115" column="9" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+        <state relative-caret-position="155">
+          <caret line="162" column="71" selection-start-line="162" selection-start-column="71" selection-end-line="162" selection-end-column="71" />
           <folding>
+            <element signature="n#!!block;n#constructor#0;n#Desk#0" />
             <element signature="n#!!block;n#componentWillMount#0;n#Desk#0" />
             <element signature="n#!!block;n#componentDidMount#0;n#Desk#0" />
             <element signature="n#!!block;n#createClone#0;n#Desk#0" />
+            <element signature="e#4382#4618#0" />
             <element signature="n#!!block;n#drawTheDesk#0" />
-            <element signature="n#!!block;n#deleteCell#0" />
             <element signature="n#!!block;n#drawCell#0" />
             <element signature="n#!!block;n#getCorrectCoordinates#0" />
           </folding>
