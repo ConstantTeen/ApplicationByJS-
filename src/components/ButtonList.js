@@ -38,11 +38,18 @@ class ButtonList extends Component{
     }
 
     render(){
-        const list = this.props.buttons.map(item =>
-        <li key={item.buttonId}><Button id={item.buttonId} content={item.buttonContent} clickListener={this.onClickEvent}/></li>);
+        const list = this.props.buttons.map(item => (
+            <li style={{"list-style-type": "none"}} key={item.buttonId}>
+                <Button
+                    id={item.buttonId}
+                    content={item.buttonContent}
+                    clickListener={this.onClickEvent}
+                />
+            </li>
+        ));
 
         return(
-            <ul>
+            <ul >
                 {list}
             </ul>
         )

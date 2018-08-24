@@ -40,7 +40,10 @@ class PlayArea extends Component{
             case (':2'):
                 return(
                     <div>
+                        <div id="timer"></div>
+                        <div id="turnContainer"></div>
                         <Desk checkersColor={this.colorChoice()}/>
+                        <div id="historyBox"></div>
                     </div>
                 );
                 break;

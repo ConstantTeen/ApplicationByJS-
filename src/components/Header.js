@@ -4,7 +4,7 @@ class Header extends Component{
     render(){
         return(
             <div>
-                <h1>CCheckers</h1>
+                <h1 style={{"text-align": "center"}}>CCheckers</h1>
             </div>
         )
     }
