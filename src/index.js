@@ -1,10 +1,14 @@
 import React,{Component} from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Route, Switch
+} from 'react-router-dom'
 import Header from './components/Header'
 import Body from './components/Body'
 import PlayArea from './components/PlayArea';
 import Error from './components/Error'
+import Footer from './components/Footer';
 
 class App extends Component{
     render(){
@@ -17,6 +21,7 @@ class App extends Component{
                         <Route path={"/play-area/:mode"} component={PlayArea}/>
                         <Route component={Error}/>
                     </Switch>
+                    <Footer/>
                 </div>
             </Router>
         )

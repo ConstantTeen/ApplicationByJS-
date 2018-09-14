@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import Desk from './Desk'
 import Error from "./Error";
+import "../styles/Desk.css";
+import Timer from "./Timer";
 
 class PlayArea extends Component{
 
@@ -32,7 +34,6 @@ class PlayArea extends Component{
             case (':1'):
                 return(
                     <div>
-                        {/*<Desk/>*/}
                         Will be soon
                     </div>
                 );
@@ -40,10 +41,10 @@ class PlayArea extends Component{
             case (':2'):
                 return(
                     <div>
-                        <div id="timer"></div>
-                        <div id="turnContainer"></div>
+                        <Timer/>
+                        <div className="TurnContainer"></div>
                         <Desk checkersColor={this.colorChoice()}/>
-                        <div id="historyBox"></div>
+                        {/*<div className="HistoryBox"></div>*/}
                     </div>
                 );
                 break;

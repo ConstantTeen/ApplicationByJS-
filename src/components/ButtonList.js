@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
-import {render} from 'react-dom';
 import Button from "./Button";
 import {browserHistory} from 'react-router'
+import "../styles/ButtonList.css";
 
 class ButtonList extends Component{
     constructor(props){
@@ -49,7 +49,7 @@ class ButtonList extends Component{
         ));
 
         return(
-            <ul >
+            <ul className="List">
                 {list}
             </ul>
         )

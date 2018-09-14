@@ -1,10 +1,12 @@
 import React,{Component} from 'react';
+import "../styles/Header.css";
 
 class Header extends Component{
     render(){
         return(
             <div>
-                <h1 style={{"text-align": "center"}}>CCheckers</h1>
+                <h1 className="Title">CCheckers</h1>
+                <hr/>
             </div>
         )
     }

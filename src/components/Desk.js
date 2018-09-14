@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import "../styles/Desk.css";
 
 class Desk extends Component{
 
@@ -8,7 +9,6 @@ class Desk extends Component{
         this.state = {
             initialState: true,
             turn: true,
-            curentTimerId: null,
             gameOver: false,
             previousDigitalDesk: [
                 [0,0,0,0,0,0,0,0,0],
@@ -43,18 +43,14 @@ class Desk extends Component{
             },
             removing: false,
             whiteFiguresAmount: 12,
-            blackFiguresAmount: 12
+            blackFiguresAmount: 12,
+            timer: "00:00",
+            historyOfTurns: ""
         };
 
         this.booleanLowerColor = props.checkersColor;
         this.deskSize = "400px";
         this.digitalDeskSize = 400;
-        this.styleObject = {
-            "border": "3px solid black",
-            "margin": "40px",
-            "marginLeft": "30%",
-            "backgroundImage": "url(https://raw.githubusercontent.com/ConstantTeen/ApplicationByJS-/master/src/pictures/desk.png)"
-        };
         this.whiteFigureUrl = "https://pp.userapi.com/c624418/v624418493/3557/82OTqkvWph0.jpg";
         this.blackFigureUrl = "https://pp.userapi.com/c624319/v624319498/28d86/QsHYBjm-Mqw.jpg";
         this.whiteQueenUrl = "https://pp.userapi.com/c841425/v841425901/5f9c1/rDBAizlyMNA.jpg";
@@ -64,6 +60,7 @@ class Desk extends Component{
     }
 
     componentWillMount(){
+
         this.setState( (prevState, props) => {
             const color = props.checkersColor;
             let newDesk = prevState.digitalDesk;
@@ -96,48 +93,15 @@ class Desk extends Component{
     }
 
     componentDidMount(){
+
         this.drawTheDesk();
-    }
+        this.setNewTurn();
 
-    setNewTimer(){
-        const timer = document.getElementById("timer");
-        const previousTimerId = this.state.timeId;
-
-        let minutes = "00";
-        let seconds = "00";
-
-        timer.innerHTML = minutes + " : " + seconds;
-
-        let timerId = setInterval(() => {
-
-            seconds++;
-
-            if(seconds >= 60){
-                minutes++;
-                seconds = 0;
-            }
-
-            if(+seconds/10 < 1) seconds = "0" + +seconds;
-            if(+minutes/10 < 1) minutes = "0" + +minutes;
-
-            timer.innerHTML = minutes + " : " + seconds;
-
-            },1000);
-
-        // this.setState( () => {
-        //     return {curentTimerId: timerId}
-        // } );
-
-        this.state.curentTimerId = timerId;
-    }
-
-    clearTimer(id){
-        clearInterval(id);
     }
 
     setNewTurn(){
 
-        const turnContainer = document.getElementById("turnContainer");
+        const turnContainer = document.getElementsByClassName("TurnContainer")[0];
         const turn = this.state.turn;
 
         if(turn) turnContainer.innerHTML = "white";
@@ -145,60 +109,16 @@ class Desk extends Component{
 
     }
 
-    apdateHistoryBox(digitalX,digitalY){
-        let x,y;
-
-        switch (digitalX) {
-            case 1:
-                x = "a";
-                break;
-            case 2:
-                x = "b";
-                break;
-            case 3:
-                x = "c";
-                break;
-            case 4:
-                x = "d";
-                break;
-            case 5:
-                x = "e";
-                break;
-            case 6:
-                x = "f";
-                break;
-            case 7:
-                x = "g";
-                break;
-            case 8:
-                x = "h";
-                break;
-            default:
-                return 1;
-        }
-
-        y = 9 - digitalY;
-
-        const historyBox = document.getElementById("historyBox");
-
-        historyBox.innerHTML+= " " + x + y + " ";
-    }
-
     whatHappend(x,y){
-console.log("=========whatHappend===========");
-        console.log("x,y",x,y);
 
-        const previousX = this.state.chosenFigure.x;console.log("px",previousX);
-        const previousY = this.state.chosenFigure.y;console.log("py",previousY);
-        const turn = this.state.turn;console.log("turn",turn);
-        const digitalFigureColor = this.state.digitalDesk[x][y]; console.log("color",digitalFigureColor);
+        const previousX = this.state.chosenFigure.x;
+        const previousY = this.state.chosenFigure.y;
+        const turn = this.state.turn;
+        const digitalFigureColor = this.state.digitalDesk[x][y];
         const previousDigitalFigureColor = (previousX === null) ? null : this.state.digitalDesk[previousX][previousY];
-        const removing = this.state.removing;console.log("removing",removing);
+        const removing = this.state.removing;
 
         if(previousDigitalFigureColor === null){
-
-            this.setNewTurn();
-            this.setNewTimer();
 
             if( this.isTherePosibilityToRemove() ) {
 
@@ -222,33 +142,30 @@ console.log("=========whatHappend===========");
 
             if( (turn && ((digitalFigureColor === 1) || (digitalFigureColor === 10)) ) ||
                 (!turn && ((digitalFigureColor === 2) || (digitalFigureColor === 20))) ) return "choosing";
-            console.log("wrongData");
+
             return "doNothing";
         }
 
-        const distanceBetweenXs = Math.abs(x - previousX);console.log("absX",distanceBetweenXs);
-        const distanceBetweenYs = Math.abs(y - previousY);console.log("absY",distanceBetweenYs);
+        const distanceBetweenXs = Math.abs(x - previousX);
+        const distanceBetweenYs = Math.abs(y - previousY);
 
         if(!removing && (digitalFigureColor !== 0)) {
-            console.log("noRemovingButColor!=0");
-            console.log("choosing");
+
             if ((turn && ((digitalFigureColor === 1) || (digitalFigureColor === 10))) ||
                 (!turn && ((digitalFigureColor === 2) || (digitalFigureColor === 20)))) return "choosing";
-            console.log("wrongData");
+
             return "doNothing";
         }
 
         if(!removing && (digitalFigureColor === 0) && (distanceBetweenXs === distanceBetweenYs)) {
-            console.log("noRemovingButColor==0");
+
             if((previousDigitalFigureColor === 10) || (previousDigitalFigureColor === 20)) {
-                this.clearTimer(this.state.curentTimerId);
 
                 return "queenReplacing";
             }
 
             if( (distanceBetweenXs === 1) && (distanceBetweenYs === 1) ){
-                console.log("xs==ys");
-                console.log("simpleReplacing");
+
                 const signedDistanceBetweenYs = y - previousY;
                 const booleanLowerColor = this.booleanLowerColor;
                 let isDirectionRight;
@@ -262,20 +179,19 @@ console.log("=========whatHappend===========");
                 }
 
                 if(isDirectionRight){
-                    this.clearTimer(this.state.curentTimerId);
 
                     return "simpleReplacing";
                 }
 
             }
-            console.log("wrongData");
+
             return "doNothing";
         }
 
         if(removing && (digitalFigureColor === 0)){
-            console.log("Removing");
+
             if( (distanceBetweenXs === 2) && (distanceBetweenYs === 2) ){
-                console.log("xs==2 and ys==2");
+
                 const middleX = (x + previousX)/2;
                 const middleY = (y + previousY)/2;
                 const digitalMiddleFigureColor = this.state.digitalDesk[middleX][middleY];
@@ -292,7 +208,7 @@ console.log("=========whatHappend===========");
 
                         return "simpleRemoving";
                     }
-                    console.log("wrongData");
+
                     return "doNothing";
 
                 }else if( (previousDigitalFigureColor === 10) || (previousDigitalFigureColor === 20) ){
@@ -307,21 +223,21 @@ console.log("=========whatHappend===========");
 
                         return "queenRemoving";
                     }
-                    console.log("wrongData");
+
                     return "doNothing";
 
                 }
             }
 
             if( (distanceBetweenXs === distanceBetweenYs) && ((previousDigitalFigureColor === 10) || (previousDigitalFigureColor === 20)) ){
-                console.log("xs == ys and pcolor == 10 or pcolor == 20");
+
                 if( this.isThereOnlyOneForeignFigure(x,y) ) {
                     this.state.removing = false;
                     this.state.rootPositionsCoordinates = [];
 
                     return "queenRemoving";
                 }
-                console.log("wrong data");
+
             }
         }
 
@@ -385,6 +301,7 @@ console.log("=========whatHappend===========");
 
                 break;
             case "simpleReplacing":
+
                 this.replaceTheFigure(x,y,false);
                 this.drawTheDesk();
 
@@ -392,8 +309,11 @@ console.log("=========whatHappend===========");
                     return {turn: !prevState.turn}
                 });
 
+                this.setNewTurn();
+
                 break;
             case "queenReplacing":
+
                 this.replaceTheFigure(x,y,true);
                 this.drawTheDesk();
 
@@ -401,10 +321,11 @@ console.log("=========whatHappend===========");
                     return {turn: !prevState.turn}
                 });
 
+                this.setNewTurn();
+
                 break;
             case "simpleRemoving":
-                const chosenX = this.state.chosenFigure.x;
-                const chosenY = this.state.chosenFigure.y;
+
                 const victimX = this.state.victimCoordinates.x;
                 const victimY = this.state.victimCoordinates.y;
 
@@ -421,7 +342,7 @@ console.log("=========whatHappend===========");
                 this.drawTheDesk();
 
                 this.setState((prevState) => {
-                    if(!prevState.turn) return {
+                    if(prevState.turn) return {
                         blackFiguresAmount: prevState.blackFiguresAmount - 1
                     };
 
@@ -439,7 +360,7 @@ console.log("=========whatHappend===========");
                     }
                     if(!this.isTherePosibilityToRemove()){
 
-                        this.clearTimer(prevState.curentTimerId);
+                        this.setNewTurn();
 
                         return {
                             turn: !prevState.turn,
@@ -467,7 +388,8 @@ console.log("=========whatHappend===========");
                 this.drawTheDesk();
 
                 this.setState((prevState) => {
-                    if(!prevState.turn) return {
+
+                    if(prevState.turn) return {
                         blackFiguresAmount: prevState.blackFiguresAmount - 1
                     };
 
@@ -485,7 +407,7 @@ console.log("=========whatHappend===========");
                     }
                     if(!this.isTherePosibilityToRemove()){
 
-                        this.clearTimer(prevState.curentTimerId);
+                        this.setNewTurn();
 
                         return {
                             turn: !prevState.turn,
@@ -504,7 +426,7 @@ console.log("=========whatHappend===========");
         if(this.state.gameOver){
             const winner = (this.state.whiteFiguresAmount > 0) ? 'white' : 'black';
 
-            alert(`Congratulations! ${winner}\'s won!`);
+            alert(`Congratulations! ${winner}s won!`);
             window.location = "/";
         }
     }
@@ -628,8 +550,8 @@ console.log("=========whatHappend===========");
 
                     if(x < 7 && y < 7){
 
-                        const cellColor = this.state.digitalDesk[x+2][y+2];console.log(x,y,cellColor);
-                        const middleCellColor = this.state.digitalDesk[x+1][y+1];console.log(x,y,middleCellColor);
+                        const cellColor = this.state.digitalDesk[x+2][y+2];
+                        const middleCellColor = this.state.digitalDesk[x+1][y+1];
 
                         if( (cellColor === 0) && ( (middleCellColor === ((turn) ? 2 : 1) ) ||
                             ( middleCellColor === ((turn) ? 20 : 10) ) ) ) {
@@ -654,15 +576,12 @@ console.log("=========whatHappend===========");
 
     replaceTheFigure(newX,newY,isItQueen){
 
-        console.log("newx,newy",newX,newY);
-        console.log("queen",isItQueen);
+        const previousX = this.state.chosenFigure.x;
+        const previousY = this.state.chosenFigure.y;
+        const lowerColor = this.booleanLowerColor;
 
-        const previousX = this.state.chosenFigure.x; console.log("px",previousX);
-        const previousY = this.state.chosenFigure.y; console.log("py",previousY);
-        const lowerColor = this.booleanLowerColor; console.log("lowerColor", lowerColor);
-
-        let color = this.state.turn; console.log("ccolor",color);
-        let newDesk = this.createClone(this.state.digitalDesk); console.log("newdesk",newDesk);
+        let color = this.state.turn;
+        let newDesk = this.createClone(this.state.digitalDesk);
 
         this.state.previousDigitalDesk = this.createClone(newDesk);
 
@@ -686,7 +605,6 @@ console.log("=========whatHappend===========");
             }
         }
 
-        console.log("qwe",color);
         newDesk[previousX][previousY] = 0;
         newDesk[newX][newY] = color;
 
@@ -700,10 +618,11 @@ console.log("=========whatHappend===========");
 
         return(
             <canvas
-                id={"desk"}
+                className="Canvas"
+                id="desk"
                 width={this.deskSize}
                 height={this.deskSize}
-                style={this.styleObject}
+                // style={this.styleObject}
                 onClick={(event) => {this.onClickListener(event)} }
                 onChange={this.onChangeListener}
             />
@@ -764,8 +683,8 @@ function drawCell(x,y,boolColor,isItQueen){
         if(isItQueen) figureUrl = this.blackQueenUrl;
         else figureUrl = this.blackFigureUrl;
     }
-
     figure.src = figureUrl;
+
     figure.onload = () => {
         ctx.drawImage(figure,xpx,ypx);
     };

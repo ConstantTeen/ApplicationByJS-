@@ -1,11 +1,12 @@
 export default [
+
+    {
+        "buttonContent": "One PC GamePlay",
+        "buttonId": "single-play"
+    },
     {
         "buttonContent": "Start",
         "buttonId": "game-with-random-user"
-    },
-    {
-        "buttonContent": "Single Play",
-        "buttonId": "single-play"
     },
     {
         "buttonContent": "Game with friend",
@@ -16,11 +17,12 @@ export default [
         "buttonId": "training"
     },
     {
-        "buttonContent": "Rooles",
+        "buttonContent": "Roles",
         "buttonId": "rooles"
     },
     {
         "buttonContent": "textures",
         "buttonId": "textures"
     }
+
 ]

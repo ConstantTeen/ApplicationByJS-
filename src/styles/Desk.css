@@ -1,0 +1,41 @@
+.Timer, .TurnContainer, .HistoryBox, .Canvas {position: absolute}
+
+.Canvas{
+
+    border: 3px solid black;
+    background: url("../pictures/desk.png");
+    left: 34%;
+    top: 25%
+}
+
+.TurnContainer{
+
+    border: 3px solid black;
+    text-align: center;
+    top: 15%;
+    bottom: 77%;
+    left: 45%;
+    width: 10%;
+
+}
+
+.Timer{
+
+    border: 3px solid black;
+    text-align: center;
+    top: 15%;
+    bottom: 77%;
+    left: 10%;
+    width: 10%;
+
+}
+
+.HistoryBox{
+
+    border: 3px solid black;
+    top: 25%;
+    height: 400px;
+    right: 10%;
+    width: 20%;
+
+}
